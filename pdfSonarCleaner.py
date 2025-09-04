@@ -2,8 +2,15 @@ import fitz  # PyMuPDF
 import argparse
 
 parser = argparse.ArgumentParser(description='pdf cleaner')
-parser.add_argument('input_pdf_path', type=str, help='Введите путь до файла: ')
+parser.add_argument("-i", "--input", type=str, help="Введите путь до файла: ")
 args = parser.parse_args()
+
+if args.input:
+    inputPdfPath = args.input
+    outputPdfPath = args.input.split('.pdf')[0] + '_cleaned.pdf'
+else:
+    inputPdfPath = input("Введите путь до файла: ")
+    outputPdfPath = inputPdfPath.split('.pdf')[0] + '_cleaned.pdf'
 
 
 def remove_images(input_pdf, output_pdf):
@@ -15,7 +22,4 @@ def remove_images(input_pdf, output_pdf):
     doc.save(output_pdf)
 
 
-input_pdf_path = args.input_pdf_path
-output_pdf_path = args.input_pdf_path.split('.pdf')[0] + '_cleaned.pdf'
-
-remove_images(input_pdf_path, output_pdf_path)
+remove_images(inputPdfPath, outputPdfPath)
